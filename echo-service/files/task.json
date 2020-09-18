@@ -1,0 +1,15 @@
+[
+  {
+    "name": "echo-service",
+    "image": "jmalloc/echo-server:0.1.0",
+    "cpu": 10,
+    "memory": 64,
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "protocol": "tcp",
+        "hostPort": 8080
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+---
+- name: Locust slave container deploy
+  hosts: localhost
+  connection: local
+  become: yes
+  
+  tasks:
+  - name: Configure slave
+    docker_container:
+      name: locust-slave
+      image: "{{image}}"
+      restart_policy: unless-stopped
+      user: "1000:1000"
+      volumes:
+        - /home/ec2-user/locust:/mnt/locust
+      command: --config=/mnt/locust/slave.conf --master-host "{{master_host}}"

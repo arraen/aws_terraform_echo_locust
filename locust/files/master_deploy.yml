@@ -1,0 +1,19 @@
+---
+- name: Locust master container deploy
+  hosts: localhost
+  connection: local
+  become: yes
+  
+  tasks:
+  - name: Configure master
+    docker_container:
+      name: locust-master
+      image: "{{image}}"
+      restart_policy: unless-stopped
+      user: "1000:1000"
+      ports:
+        - "5557:5557"
+        - "8080:8080"
+      volumes:
+        - /home/ec2-user/locust:/mnt/locust
+      command: --config=/mnt/locust/master.conf --host "{{test_target}}"
